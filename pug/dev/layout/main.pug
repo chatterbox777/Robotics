@@ -3,7 +3,9 @@ block variables
 doctype html
 html(lang="en")
 	head
+		
+		link(href="../../sources/css/style.css", rel="stylesheet")
 		title= pageTitle
 	body
-		include ../modules/header
 		block content 
+		script(src="../../js/index.js")

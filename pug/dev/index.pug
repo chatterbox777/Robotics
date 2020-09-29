@@ -2,14 +2,40 @@ extends layout/main
 block variables
 		- var pageTitle= "123"
 		- var youAreUsingPug = true
+		- var lastName = "Фамилия"
+		- var name = "Имя"
+		- var birthdate = "Дата рождения"
+		- var birthplace = "Место рождения"
+		- var mail = "Почта"
+		- var phoneNumber = "номер телефона"
+		- var registrationDate = "дата регистрации"
+		- var lastSeen = "последнее посещение сайта"
+
 
 block content
-		h1.main-info Pug - node template engine
-		#container.col
-			if youAreUsingPug
-				p You are amazing
-			else
-				p Get on it!
-			p.
-				Pug is a terse and simple templating language with a
-				strong focus on performance and powerful features.
+	div.container
+		button.table__button__popbox__on ввести данные
+		div.table 
+			div.table__navbar
+				#name.table__navbar__cell=name
+				#lastName.table__navbar__cell=lastName
+				#birthdate.table__navbar__cell=birthdate
+				#birthplace.table__navbar__cell=birthplace
+				#mail.table__navbar__cell=mail
+				#phoneNumber.table__navbar__cell=phoneNumber
+				#registrationDate.table__navbar__cell=registrationDate
+				#lastSeen.table__navbar__cell=lastSeen
+		
+	div.popbox.unvisible 
+		button.popbox__close X
+		form#userForm.popbox__form
+			input(type="text", name="name", placeholder="введите ваше имя")
+			input(type="text", name="lastname", placeholder="введите Фамилию")
+			input(type="text", name="patronymic", placeholder="введите Отчество")
+			input(type="text", name="birthdate", placeholder="введите Дату рождения")
+			input(type="text", name="birthplace", placeholder="введите Место рождения")
+			input(type="text", name="mail", placeholder="введите Почту")
+			input(type="text", name="phoneNumber", placeholder="введите Номер телефона")
+			input(type="submit")
+
+
