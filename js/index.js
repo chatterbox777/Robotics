@@ -17,7 +17,17 @@ function listenersInit() {
   const popboxClose = document.querySelector(".popbox__close");
   const inputName = document.getElementsByName("name");
   const form = document.querySelector("#userForm");
+  const inputs = document.querySelectorAll("input");
+  const inputSubmitForm = document.querySelector(".popbox__submit");
   console.log(inputName);
+  console.log(inputs);
+
+  const clearInputs = () => {
+    inputs.forEach((el, index) => {
+      el.value = "";
+    });
+  };
+
   popboxBtn.addEventListener("click", (e) => {
     e.preventDefault();
     popboxBlock.classList.remove("unvisible");
@@ -28,13 +38,25 @@ function listenersInit() {
     popboxBlock.classList.add("unvisible");
     console.log("ты выключил форму");
   });
-  inputName[0].addEventListener("change", (e) => {
-    e.preventDefault();
-    state.form.name = e.target.value;
-    console.log(state.form.name);
+  inputs.forEach((el, index) => {
+    el.addEventListener("change", (e) => {
+      e.preventDefault();
+      console.log(e);
+      textToState(e.target.name, e.target.value);
+    });
   });
+  let textToState = (idCell, text) => {
+    inputSubmitForm.addEventListener("click", (e) => {
+      e.preventDefault();
+      let neededCell = document.querySelector(`#${idCell}`);
+      let pCell = document.createElement("p");
+      pCell.textContent = text;
+      neededCell.appendChild(pCell);
+    });
+  };
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
+    console.log(form);
     console.log(new FormData(form));
     let response = await fetch("/article/formdata/post/user-avatar", {
       method: "POST",

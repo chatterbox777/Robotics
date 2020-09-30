@@ -9,8 +9,9 @@
       <button class="table__button__popbox__on">ввести данные</button>
       <div class="table"> 
         <div class="table__navbar">
+          <div class="table__navbar__cell" id="lastname">Фамилия</div>
           <div class="table__navbar__cell" id="name">Имя</div>
-          <div class="table__navbar__cell" id="lastName">Фамилия</div>
+          <div class="table__navbar__cell" id="patronymic">Отчество</div>
           <div class="table__navbar__cell" id="birthdate">Дата рождения</div>
           <div class="table__navbar__cell" id="birthplace">Место рождения</div>
           <div class="table__navbar__cell" id="mail">Почта</div>
@@ -22,15 +23,15 @@
     </div>
     <div class="popbox unvisible"> 
       <button class="popbox__close">X</button>
-      <form class="popbox__form" id="userForm">
-        <input type="text" name="name" placeholder="введите ваше имя">
+      <form class="popbox__form" id="userForm" action="http://foo.com" method="post">
         <input type="text" name="lastname" placeholder="введите Фамилию">
+        <input type="text" name="name" placeholder="введите ваше имя">
         <input type="text" name="patronymic" placeholder="введите Отчество">
         <input type="text" name="birthdate" placeholder="введите Дату рождения">
         <input type="text" name="birthplace" placeholder="введите Место рождения">
         <input type="text" name="mail" placeholder="введите Почту">
         <input type="text" name="phoneNumber" placeholder="введите Номер телефона">
-        <input type="submit">
+        <input class="popbox__submit" type="submit">
       </form>
     </div>
     <script src="../../js/index.js"></script>

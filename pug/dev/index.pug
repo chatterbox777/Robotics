@@ -2,8 +2,9 @@ extends layout/main
 block variables
 		- var pageTitle= "123"
 		- var youAreUsingPug = true
-		- var lastName = "Фамилия"
+		- var lastname = "Фамилия"
 		- var name = "Имя"
+		- var patronymic = "Отчество"
 		- var birthdate = "Дата рождения"
 		- var birthplace = "Место рождения"
 		- var mail = "Почта"
@@ -17,8 +18,9 @@ block content
 		button.table__button__popbox__on ввести данные
 		div.table 
 			div.table__navbar
+				#lastname.table__navbar__cell=lastname
 				#name.table__navbar__cell=name
-				#lastName.table__navbar__cell=lastName
+				#patronymic.table__navbar__cell=patronymic
 				#birthdate.table__navbar__cell=birthdate
 				#birthplace.table__navbar__cell=birthplace
 				#mail.table__navbar__cell=mail
@@ -28,14 +30,14 @@ block content
 		
 	div.popbox.unvisible 
 		button.popbox__close X
-		form#userForm.popbox__form
-			input(type="text", name="name", placeholder="введите ваше имя")
+		form#userForm.popbox__form(action="http://foo.com", method="post")
 			input(type="text", name="lastname", placeholder="введите Фамилию")
+			input(type="text", name="name", placeholder="введите ваше имя")
 			input(type="text", name="patronymic", placeholder="введите Отчество")
 			input(type="text", name="birthdate", placeholder="введите Дату рождения")
 			input(type="text", name="birthplace", placeholder="введите Место рождения")
 			input(type="text", name="mail", placeholder="введите Почту")
 			input(type="text", name="phoneNumber", placeholder="введите Номер телефона")
-			input(type="submit")
+			input.popbox__submit(type="submit")
 
 
