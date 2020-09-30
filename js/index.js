@@ -1,15 +1,7 @@
 let state = {
-  form: {
-    name: "",
-    lastName: "",
-    birthdate: "",
-    birthplace: "",
-    mail: "",
-    phoneNumber: "",
-    registrationDate: "",
-    lastSeen: "",
-  },
+  form: [],
 };
+let objOfInputsValue = {};
 
 function listenersInit() {
   const popboxBtn = document.querySelector(".table__button__popbox__on");
@@ -19,12 +11,17 @@ function listenersInit() {
   const form = document.querySelector("#userForm");
   const inputs = document.querySelectorAll("input");
   const inputSubmitForm = document.querySelector(".popbox__submit");
+  const inputsArr = Array.from(inputs);
+  const tableCells = document.querySelectorAll(".table__navbar__cell");
   console.log(inputName);
   console.log(inputs);
+  console.log(inputsArr);
 
   const clearInputs = () => {
     inputs.forEach((el, index) => {
-      el.value = "";
+      if (el.className !== "popbox__submit") {
+        el.value = "";
+      }
     });
   };
 
@@ -38,35 +35,48 @@ function listenersInit() {
     popboxBlock.classList.add("unvisible");
     console.log("ты выключил форму");
   });
-  inputs.forEach((el, index) => {
-    el.addEventListener("change", (e) => {
-      e.preventDefault();
-      console.log(e);
-      textToState(e.target.name, e.target.value);
+
+  inputsArr.forEach((el, index) => {
+    console.log(el);
+    el.addEventListener("focus", (e) => {
+      e.currentTarget.addEventListener("change", (e) => {
+        console.log(e);
+        objOfInputsValue[e.currentTarget.name] = e.currentTarget.value;
+        console.log(objOfInputsValue);
+      });
     });
   });
-  let textToState = (idCell, text) => {
-    inputSubmitForm.addEventListener("click", (e) => {
-      e.preventDefault();
-      let neededCell = document.querySelector(`#${idCell}`);
-      let pCell = document.createElement("p");
-      pCell.textContent = text;
-      neededCell.appendChild(pCell);
-    });
-  };
-  form.addEventListener("submit", async (e) => {
+
+  inputSubmitForm.addEventListener("click", (e) => {
     e.preventDefault();
-    console.log(form);
-    console.log(new FormData(form));
-    let response = await fetch("/article/formdata/post/user-avatar", {
-      method: "POST",
-      body: new FormData(form),
-    });
-
-    let result = await response.json();
-
-    alert(result.message);
+    if (Object.keys(objOfInputsValue).length > 0) {
+      state.form.push(objOfInputsValue);
+      objOfInputsValue = {};
+      clearInputs();
+      console.log(objOfInputsValue);
+      console.log(state);
+    }
   });
+
+  if (state.form.length > 0) {
+    let tableCellsArr = Array.from(tableCells);
+    tableCellsArr.forEach((el, index) => {
+      console.log(el);
+    });
+  }
+  // form.addEventListener("submit", async (e) => {
+  //   e.preventDefault();
+  //   console.log(form);
+  //   console.log(new FormData(form));
+  //   let response = await fetch("/article/formdata/post/user-avatar", {
+  //     method: "POST",
+  //     body: new FormData(form),
+  //   });
+
+  //   let result = await response.json();
+
+  //   alert(result.message);
+  // });
 }
 
 function init() {
