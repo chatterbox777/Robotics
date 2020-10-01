@@ -1,29 +1,51 @@
+const popboxBtn = document.querySelector(".table__button__popbox__on");
+const popboxBlock = document.querySelector(".popbox");
+const popboxClose = document.querySelector(".popbox__close");
+const inputName = document.getElementsByName("name");
+const form = document.querySelector("#userForm");
+const inputs = document.querySelectorAll("input");
+const submitForm = document.querySelector("#userForm");
+const inputsArr = Array.from(inputs);
+const tableCells = document.querySelectorAll(".table__navbar__cell");
+
 let state = {
   form: [],
 };
 let objOfInputsValue = {};
+// остановился на том, что нужно размэпить массив state.form и добавить
+// каждому столбцу свое значение из ключа объекта в массиве state.form
+
+const clearInputs = () => {
+  inputs.forEach((el, index) => {
+    if (el.className !== "popbox__submit") {
+      el.value = "";
+    }
+  });
+};
+function addIdtoElement() {
+  if (state.form.length > 0) {
+    state.form.map((el, index) => {
+      el.id = index;
+    });
+  }
+}
+function addElementToTableCell() {
+  state.form.map((el, index) => {
+    for (key in el) {
+      if (key !== "id") {
+        let tableCell = document.querySelector(`#${key}`);
+        let pCell = document.createElement("p");
+        pCell.textContent = el[key];
+        tableCell.appendChild(pCell);
+      }
+    }
+  });
+}
 
 function listenersInit() {
-  const popboxBtn = document.querySelector(".table__button__popbox__on");
-  const popboxBlock = document.querySelector(".popbox");
-  const popboxClose = document.querySelector(".popbox__close");
-  const inputName = document.getElementsByName("name");
-  const form = document.querySelector("#userForm");
-  const inputs = document.querySelectorAll("input");
-  const inputSubmitForm = document.querySelector(".popbox__submit");
-  const inputsArr = Array.from(inputs);
-  const tableCells = document.querySelectorAll(".table__navbar__cell");
   console.log(inputName);
   console.log(inputs);
   console.log(inputsArr);
-
-  const clearInputs = () => {
-    inputs.forEach((el, index) => {
-      if (el.className !== "popbox__submit") {
-        el.value = "";
-      }
-    });
-  };
 
   popboxBtn.addEventListener("click", (e) => {
     e.preventDefault();
@@ -47,7 +69,7 @@ function listenersInit() {
     });
   });
 
-  inputSubmitForm.addEventListener("click", (e) => {
+  submitForm.addEventListener("submit", (e) => {
     e.preventDefault();
     if (Object.keys(objOfInputsValue).length > 0) {
       state.form.push(objOfInputsValue);
@@ -55,6 +77,9 @@ function listenersInit() {
       clearInputs();
       console.log(objOfInputsValue);
       console.log(state);
+      addIdtoElement();
+      console.log(state);
+      addElementToTableCell();
     }
   });
 
