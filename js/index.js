@@ -7,13 +7,26 @@ const inputs = document.querySelectorAll("input");
 const submitForm = document.querySelector("#userForm");
 const inputsArr = Array.from(inputs);
 const tableCells = document.querySelectorAll(".table__navbar__cell");
-
+const dateCell = document.querySelector("#registrationDate");
 let state = {
   form: [],
 };
 let objOfInputsValue = {};
 // остановился на том, что нужно размэпить массив state.form и добавить
 // каждому столбцу свое значение из ключа объекта в массиве state.form
+function dateNow() {
+  let date = new Date();
+  console.log(date);
+  let year = date.getFullYear();
+  let month = date.getMonth();
+  let day = date.getDate();
+  console.log(year);
+  console.log(month);
+  console.log(day);
+  return `${day.toString().length === 1 ? `0${day}` : day}.${
+    (month + 1).toString().length === 1 ? `0${month + 1}` : month + 1
+  }.${year}`;
+}
 
 const clearInputs = () => {
   inputs.forEach((el, index) => {
@@ -40,6 +53,9 @@ function addElementToTableCell() {
           tableCell.appendChild(pCell);
         }
       }
+      let registrationDate = document.createElement("p");
+      registrationDate.textContent = dateNow();
+      dateCell.appendChild(registrationDate);
     }
   });
 }
