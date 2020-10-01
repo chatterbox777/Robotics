@@ -31,12 +31,14 @@ function addIdtoElement() {
 }
 function addElementToTableCell() {
   state.form.map((el, index) => {
-    for (key in el) {
-      if (key !== "id") {
-        let tableCell = document.querySelector(`#${key}`);
-        let pCell = document.createElement("p");
-        pCell.textContent = el[key];
-        tableCell.appendChild(pCell);
+    if (state.form.length === 0 || el.id === state.form.length - 1) {
+      for (key in el) {
+        if (key !== "id") {
+          let tableCell = document.querySelector(`#${key}`);
+          let pCell = document.createElement("p");
+          pCell.textContent = el[key];
+          tableCell.appendChild(pCell);
+        }
       }
     }
   });
