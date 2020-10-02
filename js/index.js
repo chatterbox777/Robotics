@@ -8,6 +8,9 @@ const submitForm = document.querySelector("#userForm");
 const inputsArr = Array.from(inputs);
 const tableCells = document.querySelectorAll(".table__navbar__cell");
 const dateCell = document.querySelector("#registrationDate");
+const deleteCell = document.querySelector("#deletePerson");
+const editCell = document.querySelector("#editPerson");
+
 let state = {
   form: [],
 };
@@ -42,6 +45,32 @@ function addIdtoElement() {
     });
   }
 }
+
+function makeDeleteBtn(el) {
+  let delBtn = document.createElement("button");
+  delBtn.textContent = "x";
+  delBtn.id = el.id;
+  deleteCell.appendChild(delBtn);
+  delBtn.addEventListener("click", (e) => {
+    let id = e.target.id;
+    state.form.splice(id, 1);
+    console.log(state);
+    let nodesToDelete = document.querySelectorAll(".table__navbar__cell");
+    let arrnodesToDelete = Array.from(nodesToDelete);
+    let indexOfNode = el.id;
+    arrnodesToDelete.forEach((el, index) => {
+      let nodeToDelete = el;
+      if (el.children.length > 0) {
+        let p = Array.from(el.children);
+        p.forEach((elP) => {
+          elP.id === indexOfNode.toString() && nodeToDelete.removeChild(elP);
+        });
+      }
+    });
+    console.log(nodesToDelete);
+  });
+}
+
 function addElementToTableCell() {
   state.form.map((el, index) => {
     if (state.form.length === 0 || el.id === state.form.length - 1) {
@@ -50,12 +79,15 @@ function addElementToTableCell() {
           let tableCell = document.querySelector(`#${key}`);
           let pCell = document.createElement("p");
           pCell.textContent = el[key];
+          pCell.id = el.id;
           tableCell.appendChild(pCell);
         }
       }
       let registrationDate = document.createElement("p");
       registrationDate.textContent = dateNow();
+      registrationDate.id = el.id;
       dateCell.appendChild(registrationDate);
+      makeDeleteBtn(el);
     }
   });
 }
