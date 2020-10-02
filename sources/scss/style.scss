@@ -28,6 +28,14 @@
     width: max-content;
     padding: 10px;
   }
+  #deletePerson {
+    display: flex;
+    flex-direction: column;
+    button {
+      margin-top: 5px;
+      margin-bottom: 9px;
+    }
+  }
 }
 .popbox {
   width: 500px;

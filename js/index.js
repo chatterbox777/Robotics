@@ -53,7 +53,9 @@ function makeDeleteBtn(el) {
   deleteCell.appendChild(delBtn);
   delBtn.addEventListener("click", (e) => {
     let id = e.target.id;
-    state.form.splice(id, 1);
+    state.form.forEach((el, index) => {
+      el.id.toString() === id && state.form.splice(index, 1);
+    });
     console.log(state);
     let nodesToDelete = document.querySelectorAll(".table__navbar__cell");
     let arrnodesToDelete = Array.from(nodesToDelete);
@@ -69,6 +71,7 @@ function makeDeleteBtn(el) {
     });
     console.log(nodesToDelete);
   });
+  console.log(state);
 }
 
 function addElementToTableCell() {

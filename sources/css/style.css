@@ -30,6 +30,14 @@
   width: max-content;
   padding: 10px;
 }
+.table__navbar #deletePerson {
+  display: flex;
+  flex-direction: column;
+}
+.table__navbar #deletePerson button {
+  margin-top: 5px;
+  margin-bottom: 9px;
+}
 
 .popbox {
   width: 500px;
