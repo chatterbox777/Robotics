@@ -2,7 +2,7 @@ extends layout/main
 block variables
 		- var pageTitle= "123"
 		- var youAreUsingPug = true
-		- var lastname = "Фамилия"
+		- var lastname = "Ф.И.О."
 		- var name = "Имя"
 		- var patronymic = "Отчество"
 		- var birthdate = "Дата рождения"
@@ -22,8 +22,6 @@ block content
 		div.table 
 			div.table__navbar
 				#lastname.table__navbar__cell=lastname
-				#name.table__navbar__cell=name
-				#patronymic.table__navbar__cell=patronymic
 				#birthdate.table__navbar__cell=birthdate
 				#birthplace.table__navbar__cell=birthplace
 				#mail.table__navbar__cell=mail

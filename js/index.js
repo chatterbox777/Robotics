@@ -78,12 +78,22 @@ function addElementToTableCell() {
   state.form.map((el, index) => {
     if (state.form.length === 0 || el.id === state.form.length - 1) {
       for (key in el) {
-        if (key !== "id") {
+        if (key !== "id" && key !== "name" && key !== "patronymic") {
           let tableCell = document.querySelector(`#${key}`);
           let pCell = document.createElement("p");
-          pCell.textContent = el[key];
-          pCell.id = el.id;
-          tableCell.appendChild(pCell);
+          if (key.toString() === "lastname") {
+            pCell.textContent = `${el[key]} ${state.form[el.id].name.substr(
+              0,
+              1
+            )}. ${state.form[el.id].patronymic.substr(0, 1)}.`;
+            pCell.id = el.id;
+            tableCell.appendChild(pCell);
+          }
+          if (key.toString() !== "lastname") {
+            pCell.textContent = el[key];
+            pCell.id = el.id;
+            tableCell.appendChild(pCell);
+          }
         }
       }
       let registrationDate = document.createElement("p");
@@ -114,9 +124,11 @@ function listenersInit() {
   inputsArr.forEach((el, index) => {
     console.log(el);
     el.addEventListener("focus", (e) => {
-      e.currentTarget.addEventListener("change", (e) => {
+      e.currentTarget.addEventListener("input", (e) => {
         console.log(e);
+
         objOfInputsValue[e.currentTarget.name] = e.currentTarget.value;
+
         console.log(objOfInputsValue);
       });
     });
